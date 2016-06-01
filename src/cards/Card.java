@@ -12,6 +12,10 @@ public class Card {
 		this.value = value;
 	}
 	
+	public String testMethod(){
+		return "";
+	}
+	
 	public String toString(){
 		return rank + " of " + suit + "s\n"; 
 	}
