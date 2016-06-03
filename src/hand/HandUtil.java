@@ -34,34 +34,58 @@ public class HandUtil {
 		return highestCurrentCard;
 	}
 	
-	private static Hand getPair(ArrayList<Card> cards){
+	private static Hand getHand(ArrayList<Card> cards){
 		
-		HashMap<Integer, Integer> cardMap = new HashMap<Integer, Integer>();
+		// Check for pairs first
+		
+		HashMap<Integer, ArrayList<Card>> cardMap = new HashMap<Integer, ArrayList<Card>>();
+		Card highCard = null;
+		
 		
 		for(Card c : cards){
-			Integer currentValue = cardMap.get(c.value);
+			
+			if(highCard == null){
+				highCard = c;
+			} else if(c.value > highCard.value){
+				highCard = c;
+			}
+			
+			ArrayList<Card> currentValue = cardMap.get(c.value);
+			
 			if(currentValue == null){
-				cardMap.put(c.value, 1);
+				cardMap.put(c.value, new ArrayList<Card>());
+				cardMap.get(c.value).add(c);
 			} else {
-				cardMap.put(c.value, cardMap.get(c.value)+1);
+				cardMap.get(c.value).add(c);
 			}	
 		}
 		
-		
-		Hand h = null;
+		ArrayList<Hand> hands = new ArrayList<Hand>();
 		
 		for(Integer j : cardMap.keySet()){
-			if(j == 2){
-				h = new Hand(Hand.HAND_PAIR, j);
+			if(cardMap.get(j).size() == 2){
+				Pair p = new Pair(cardMap.get(j).get(0), cardMap.get(j).get(1));
+				hands.add(p);
+			}
+			
+			if(cardMap.get(j).size() == 3){
+				ThreeOfAKind t = new ThreeOfAKind(cardMap.get(j).get(0), cardMap.get(j).get(1), cardMap.get(j).get(2));
+				hands.add(t);
+			}
+			
+			if(cardMap.get(j).size() == 4){
+				FourOfAKind f = new FourOfAKind(cardMap.get(j).get(0), cardMap.get(j).get(1), cardMap.get(j).get(2), cardMap.get(j).get(3));
+				hands.add(f);
 			}
 		}
 		
-		if(h == null){
+		/*if(h == null){
 			h = new Hand(Hand.HAND_HIGH_CARD, HandUtil.findHighestCard(cards).value);
 		}
+		*/
 		
 		
-		return h;
+		return null;
 	}
 
 }
