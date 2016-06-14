@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import cards.Card;
+import cards.CardInfo;
 
 public class HandUtil {
 	
@@ -84,14 +85,22 @@ public class HandUtil {
 
 			@Override
 			public int compare(Card card1, Card card2) {							
-				String a = "hello";
 				return card1.value - card2.value;
 				
 			}
 		});
 		
-		Hand isSequenced = findStraight(cards, 1, cards.get(0).value, 0, 0, false);
+		Flush flush = checkFlush(cards);
 		
+		if(flush != null){
+			hands.add(flush);
+		}
+		
+		Hand checkStraight = findStraight(cards, 1, cards.get(0).value, 0, 0, false);
+		
+		if(checkStraight != null && flush != null){
+			checkStraightFlush(checkStraight);
+		}
 		
 		
 		/*if(h == null){
@@ -103,7 +112,56 @@ public class HandUtil {
 		return null;
 	}
 	
-	private static Hand findStraight(ArrayList<Card> cards, int index, int previousValue, int sequenceCount, int highestSequenceIndex, boolean straightFound){
+	private static StraightFlush checkStraightFlush(Straight straight){
+		
+	}
+	
+	private static Flush checkFlush(ArrayList<Card> cards){
+		ArrayList<Card> clubs = new ArrayList<Card>();
+		ArrayList<Card> diamonds = new ArrayList<Card>();
+		ArrayList<Card> hearts = new ArrayList<Card>();
+		ArrayList<Card> spades = new ArrayList<Card>();
+		
+		for(int i = 0; i < cards.size(); i++){
+			if(cards.get(i).rank.equalsIgnoreCase(CardInfo.CLUB)){
+				clubs.add(cards.get(i));
+			}
+			if(cards.get(i).rank.equalsIgnoreCase(CardInfo.DIAMOND)){
+				diamonds.add(cards.get(i));
+			}
+			if(cards.get(i).rank.equalsIgnoreCase(CardInfo.HEART)){
+				hearts.add(cards.get(i));
+			}
+			if(cards.get(i).rank.equalsIgnoreCase(CardInfo.SPADE)){
+				spades.add(cards.get(i));
+			}
+		}
+		
+		if(clubs.size() >= 5){
+			return new Flush(clubs);
+		}
+		
+		if(diamonds.size() >= 5){
+			return new Flush(diamonds);
+		}
+		
+		if(hearts.size() >= 5){
+			return new Flush(hearts);
+		}
+		
+		if(spades.size() >= 5){
+			return new Flush(spades);
+		}
+		
+		return null;
+	}
+	
+	
+	private static ArrayList<Straight> findStraights(ArrayList<Card> cards, int index, int previousValue, int sequenceCount, int highestSequenceIndex, boolean straightFound){
+		
+		// TODO recursively find all straights
+		
+		ArrayList<Straight> straights = new ArrayList<Straight>();
 		
 		if(cards.get(index).value == previousValue+1){
 			sequenceCount ++;
@@ -131,9 +189,11 @@ public class HandUtil {
 				return straight;
 			} 
 			
-			// return high card
-			
-			HighCard h = new HighCard(cards.get(cards.size()-1));
+//			// return high card
+//			
+//			HighCard h = new HighCard(cards.get(cards.size()-1));
+//			
+//			return h;
 			
 			return null;
 			
