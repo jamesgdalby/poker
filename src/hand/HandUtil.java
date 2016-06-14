@@ -2,6 +2,7 @@ package hand;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import cards.Card;
@@ -79,6 +80,20 @@ public class HandUtil {
 			}
 		}
 		
+		cards.sort(new Comparator<Card>(){
+
+			@Override
+			public int compare(Card card1, Card card2) {							
+				String a = "hello";
+				return card1.value - card2.value;
+				
+			}
+		});
+		
+		boolean isSequenced = findStraight(cards, 0);
+		
+		
+		
 		/*if(h == null){
 			h = new Hand(Hand.HAND_HIGH_CARD, HandUtil.findHighestCard(cards).value);
 		}
@@ -87,6 +102,58 @@ public class HandUtil {
 		
 		return null;
 	}
+	
+	private static Hand findStraight(ArrayList<Card> cards, int index, int previousValue, int sequenceCount, int highestSequenceIndex, boolean straightFound){
+		
+		if(cards.get(index).value == previousValue+1){
+			sequenceCount ++;
+			highestSequenceIndex = index;
+			
+			if (sequenceCount >= 5){
+				straightFound = true;
+			}
+			
+		} else {
+			sequenceCount = 0;
+		}
+		
+		if(index >= cards.size()){
+			// determine what kind of straight we have
+			// h = our new hand
+			
+			if(foundStraight){
+				Straight straight = new Straight(cards.get(highestSequenceIndex),
+						cards.get(highestSequenceIndex-1),
+						cards.get(highestSequenceIndex-2),
+						cards.get(highestSequenceIndex-3),
+						cards.get(highestSequenceIndex-4));
+				
+				return straight;
+			} 
+			
+			// return high card
+			
+			HighCard h = new HighCard(cards.get(cards.size()-1));
+			
+			return null;
+			
+			
+		} else {
+		
+			return findStraight(
+					cards, 
+					index + 1, 
+					cards.get(index).value, 
+					sequenceCount, 
+					highestSequenceIndex, 
+					straightFound
+					);
+		}
+	
+		 
+	}
+	
+	
 
 }
 
