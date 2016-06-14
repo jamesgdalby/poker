@@ -1,5 +1,7 @@
 package hand;
 
+import java.util.ArrayList;
+
 import cards.Card;
 
 public class Hand {
@@ -16,6 +18,10 @@ public class Hand {
 
 	public void setHighCard(Card highCard) {
 		this.highCard = highCard;
+	}
+	
+	public ArrayList<Card>getCards(){
+		return new ArrayList<Card>();
 	}
 	
 	

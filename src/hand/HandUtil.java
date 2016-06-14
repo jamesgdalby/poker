@@ -90,7 +90,7 @@ public class HandUtil {
 			}
 		});
 		
-		boolean isSequenced = findStraight(cards, 0);
+		Hand isSequenced = findStraight(cards, 1, cards.get(0).value, 0, 0, false);
 		
 		
 		
@@ -121,7 +121,7 @@ public class HandUtil {
 			// determine what kind of straight we have
 			// h = our new hand
 			
-			if(foundStraight){
+			if(straightFound){
 				Straight straight = new Straight(cards.get(highestSequenceIndex),
 						cards.get(highestSequenceIndex-1),
 						cards.get(highestSequenceIndex-2),
