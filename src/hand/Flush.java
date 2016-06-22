@@ -32,7 +32,7 @@ public class Flush extends Hand{
 	}	
 	
 	@Override
-	public ArrayList<Card> getCards(){P
+	public ArrayList<Card> getCards(){
 		return cards;
 	}
 

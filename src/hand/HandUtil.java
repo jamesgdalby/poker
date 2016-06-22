@@ -90,16 +90,18 @@ public class HandUtil {
 			}
 		});
 		
+		ArrayList<Straight> straights = new ArrayList<Straight>();
+		
+		findStraights(cards, straights, 1, cards.get(0).value, 0, 0, false);
+		
+		if(straights.size() > 0){
+			checkStraightFlush(straights);
+		}
+		
 		Flush flush = checkFlush(cards);
 		
 		if(flush != null){
 			hands.add(flush);
-		}
-		
-		Hand checkStraight = findStraight(cards, 1, cards.get(0).value, 0, 0, false);
-		
-		if(checkStraight != null && flush != null){
-			checkStraightFlush(checkStraight);
 		}
 		
 		
@@ -112,8 +114,42 @@ public class HandUtil {
 		return null;
 	}
 	
-	private static StraightFlush checkStraightFlush(Straight straight){
+	private static StraightFlush checkStraightFlush(ArrayList<Straight> straights){
 		
+		ArrayList<StraightFlush> sf = new ArrayList<StraightFlush>();
+		
+		for(Straight s : straights){
+			Flush f = checkFlush(s.getCards());
+			
+			if(f != null){
+				sf.add(new StraightFlush(f.getCards()));
+			}
+			
+		}
+		
+		if(sf.size()>0){
+			
+			int highest = 0;
+			int index = 0;
+			
+			if(sf.size() == 1){
+				return sf.get(0);
+			} else {
+			
+				for(int i = 0; i < sf.size(); i++){
+					if(sf.get(i).getHighCard().value > highest){
+						highest = sf.get(i).getHighCard().value;
+						index = i;
+					}
+				}
+				
+				
+			}
+			
+			return sf.get(index);
+		}
+		
+		return null;
 	}
 	
 	private static Flush checkFlush(ArrayList<Card> cards){
@@ -157,11 +193,9 @@ public class HandUtil {
 	}
 	
 	
-	private static ArrayList<Straight> findStraights(ArrayList<Card> cards, int index, int previousValue, int sequenceCount, int highestSequenceIndex, boolean straightFound){
+	private static void findStraights(ArrayList<Card> cards, ArrayList<Straight> straights, int index, int previousValue, int sequenceCount, int highestSequenceIndex, boolean straightFound){
 		
 		// TODO recursively find all straights
-		
-		ArrayList<Straight> straights = new ArrayList<Straight>();
 		
 		if(cards.get(index).value == previousValue+1){
 			sequenceCount ++;
@@ -176,8 +210,6 @@ public class HandUtil {
 		}
 		
 		if(index >= cards.size()){
-			// determine what kind of straight we have
-			// h = our new hand
 			
 			if(straightFound){
 				Straight straight = new Straight(cards.get(highestSequenceIndex),
@@ -186,28 +218,20 @@ public class HandUtil {
 						cards.get(highestSequenceIndex-3),
 						cards.get(highestSequenceIndex-4));
 				
-				return straight;
+				straights.add(straight);
 			} 
-			
-//			// return high card
-//			
-//			HighCard h = new HighCard(cards.get(cards.size()-1));
-//			
-//			return h;
-			
-			return null;
-			
 			
 		} else {
 		
-			return findStraight(
-					cards, 
-					index + 1, 
-					cards.get(index).value, 
-					sequenceCount, 
-					highestSequenceIndex, 
-					straightFound
-					);
+			findStraights(
+				cards, 
+				straights,
+				index + 1, 
+				cards.get(index).value, 
+				sequenceCount, 
+				highestSequenceIndex, 
+				straightFound
+			);
 		}
 	
 		 
