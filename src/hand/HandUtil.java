@@ -41,10 +41,14 @@ public class HandUtil {
 		// Check for pairs first
 		
 		HashMap<Integer, ArrayList<Card>> cardMap = new HashMap<Integer, ArrayList<Card>>();
+		
 		Card highCard = null;
 		
+		boolean fourOfAKindFound = false;
 		
 		for(Card c : cards){
+			
+			// Get the high card in the hand
 			
 			if(highCard == null){
 				highCard = c;
@@ -54,6 +58,8 @@ public class HandUtil {
 			
 			ArrayList<Card> currentValue = cardMap.get(c.value);
 			
+			
+			// Map the value of cards to their card types
 			if(currentValue == null){
 				cardMap.put(c.value, new ArrayList<Card>());
 				cardMap.get(c.value).add(c);
@@ -63,21 +69,85 @@ public class HandUtil {
 		}
 		
 		ArrayList<Hand> hands = new ArrayList<Hand>();
-		
+				
 		for(Integer j : cardMap.keySet()){
-			if(cardMap.get(j).size() == 2){
+			if(cardMap.get(j).size() == 4){
+				FourOfAKind f = new FourOfAKind(cardMap.get(j).get(0), cardMap.get(j).get(1), cardMap.get(j).get(2), cardMap.get(j).get(3));
+				hands.add(f);
+				fourOfAKindFound = true;
+				break;
+			} else if(cardMap.get(j).size() == 3){
+				ThreeOfAKind t = new ThreeOfAKind(cardMap.get(j).get(0), cardMap.get(j).get(1), cardMap.get(j).get(2));
+				hands.add(t);
+			} else if(cardMap.get(j).size() == 2){
 				Pair p = new Pair(cardMap.get(j).get(0), cardMap.get(j).get(1));
 				hands.add(p);
 			}
 			
-			if(cardMap.get(j).size() == 3){
-				ThreeOfAKind t = new ThreeOfAKind(cardMap.get(j).get(0), cardMap.get(j).get(1), cardMap.get(j).get(2));
-				hands.add(t);
-			}
-			
-			if(cardMap.get(j).size() == 4){
-				FourOfAKind f = new FourOfAKind(cardMap.get(j).get(0), cardMap.get(j).get(1), cardMap.get(j).get(2), cardMap.get(j).get(3));
-				hands.add(f);
+		}
+		
+		// Full house check
+		
+		boolean fullHouseFound = false;
+		
+		ArrayList<ThreeOfAKind> threeOfAKindList = new ArrayList<ThreeOfAKind>();
+		ArrayList<Pair> pairList = new ArrayList<Pair>();
+		
+		
+		for(Hand h : hands){
+			if(h instanceof ThreeOfAKind){
+				threeOfAKindList.add((ThreeOfAKind) h);
+			} else if(h instanceof Pair) {
+				pairList.add((Pair) h);
+			}	
+		}
+		
+		if(threeOfAKindList.size() >= 1 ){
+			// Check for two threeOfAKinds
+			FullHouse fullHouse;
+			if(threeOfAKindList.size() == 2){
+				// Determine what kind of a full house you have given 2 ThreeOfAKinds
+				fullHouseFound = true;
+				
+				int currentHighValue = threeOfAKindList.get(0).getHighCard().value;
+				if(currentHighValue > threeOfAKindList.get(1).getHighCard().value){
+					Pair p = new Pair(
+							threeOfAKindList.get(1).getCards().get(0),
+							threeOfAKindList.get(1).getCards().get(1)
+							);
+					fullHouse = new FullHouse(threeOfAKindList.get(0), p);
+					hands.add(fullHouse);
+					
+				} else {
+					Pair p = new Pair(
+							threeOfAKindList.get(0).getCards().get(0),
+							threeOfAKindList.get(0).getCards().get(1)
+							);
+					fullHouse = new FullHouse(threeOfAKindList.get(1), p);
+					hands.add(fullHouse);
+				}
+			} else {
+				//Check for pairs
+				if(pairList.size() > 0){
+					// Full house FOUND!
+					fullHouseFound = true;
+					
+					if(pairList.size() == 2){
+						// find the highest pair if there are two
+						
+						int currentHighValue = pairList.get(0).getHighCard().value;
+						
+						if(pairList.get(1).getHighCard().value > currentHighValue){
+							fullHouse = new FullHouse(threeOfAKindList.get(0), pairList.get(1));
+						} else {
+							fullHouse = new FullHouse(threeOfAKindList.get(0), pairList.get(0));
+						}
+					} else {
+						// create a full house with the only pair available
+						fullHouse = new FullHouse(threeOfAKindList.get(0), pairList.get(0));
+					}
+					hands.add(fullHouse);
+				}
 			}
 		}
 		
@@ -94,21 +164,22 @@ public class HandUtil {
 		
 		findStraights(cards, straights, 1, cards.get(0).value, 0, 0, false);
 		
+		StraightFlush straightFlush = null;
+		
 		if(straights.size() > 0){
-			checkStraightFlush(straights);
+			straightFlush = checkStraightFlush(straights);
 		}
 		
-		Flush flush = checkFlush(cards);
-		
-		if(flush != null){
-			hands.add(flush);
+		if(straightFlush != null){
+			hands.add(straightFlush);
+		} else {
+			Flush flush = checkFlush(cards);
+			if(flush != null){
+				hands.add(flush);
+			}
 		}
 		
-		
-		/*if(h == null){
-			h = new Hand(Hand.HAND_HIGH_CARD, HandUtil.findHighestCard(cards).value);
-		}
-		*/
+		hands.add(new HighCard(HandUtil.findHighestCard(cards)));;
 		
 		
 		return null;
