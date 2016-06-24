@@ -38,7 +38,9 @@ public class HandUtil {
 	
 	private static Hand getHand(ArrayList<Card> cards){
 		
-		// Check for pairs first
+		//******************************
+		//***       Pair Check       ***
+		//******************************
 		
 		HashMap<Integer, ArrayList<Card>> cardMap = new HashMap<Integer, ArrayList<Card>>();
 		
@@ -86,7 +88,9 @@ public class HandUtil {
 			
 		}
 		
-		// Full house check
+		//*************************
+		//***  Full house check ***
+		//*************************
 		
 		boolean fullHouseFound = false;
 		
@@ -151,6 +155,11 @@ public class HandUtil {
 			}
 		}
 		
+		
+		//*************************
+		//***  Straights Check  ***
+		//*************************
+		
 		cards.sort(new Comparator<Card>(){
 
 			@Override
@@ -163,6 +172,10 @@ public class HandUtil {
 		ArrayList<Straight> straights = new ArrayList<Straight>();
 		
 		findStraights(cards, straights, 1, cards.get(0).value, 0, 0, false);
+		
+		//******************************
+		//***  Straight Flush Check  ***
+		//******************************
 		
 		StraightFlush straightFlush = null;
 		
@@ -179,7 +192,16 @@ public class HandUtil {
 			}
 		}
 		
+		//******************************
+		//***     High Card Only     ***
+		//******************************
+		
 		hands.add(new HighCard(HandUtil.findHighestCard(cards)));;
+		
+		
+		//******************************
+		//***   Find Highest Hand    ***
+		//******************************
 		
 		
 		return null;
