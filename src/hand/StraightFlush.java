@@ -24,6 +24,7 @@ private Card card1, card2, card3, card4, card5;
 		this.card4 = cards.get(3);
 		this.card5 = cards.get(4);
 		setHighCard(card5);
+		this.handRank = 8;
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ public class HighCard extends Hand{
 	public HighCard(Card card){
 		this.card = card;
 		setHighCard(card);
+		this.handRank = 0;
 	}
 	
 	@Override

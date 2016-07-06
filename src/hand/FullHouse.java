@@ -12,6 +12,7 @@ public class FullHouse extends Hand{
 	public FullHouse(ThreeOfAKind t, Pair p){
 		this.threeOfAKind = t;
 		this.pair = p;
+		this.handRank = 6;
 	}
 	
 	@Override 

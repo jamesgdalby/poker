@@ -15,6 +15,7 @@ public class Straight extends Hand{
 		this.card4 = card4;
 		this.card5 = card5;
 		setHighCard(card5);
+		this.handRank = 4;
 	}	
 	
 	@Override

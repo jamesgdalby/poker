@@ -8,6 +8,7 @@ import cards.Card;
 public class Hand {
 	
 	private Card highCard;
+	public int handRank;
 	
 	public Hand(){
 		

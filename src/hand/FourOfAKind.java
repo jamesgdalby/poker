@@ -13,6 +13,7 @@ public class FourOfAKind extends Hand {
 		this.card2 = card2;
 		this.card3 = card3;
 		this.card4 = card4;
+		this.handRank = 7;
 	}
 	
 	public String toString(){

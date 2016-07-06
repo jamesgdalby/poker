@@ -11,6 +11,7 @@ public class TwoPair extends Hand{
 		this.pair1Card2 = pair1Card2;
 		this.pair2Card1 = pair2Card1;
 		this.pair2Card2 = pair2Card2;
+		this.handRank = 2;
 	}
 	
 	public String toString(){

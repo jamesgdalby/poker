@@ -10,6 +10,7 @@ public class Pair extends Hand{
 	public Pair(Card card1, Card card2){
 		this.card1 = card1;
 		this.card2 = card2;
+		this.handRank = 1;
 	}
 	
 	public String toString(){

@@ -203,6 +203,20 @@ public class HandUtil {
 		//***   Find Highest Hand    ***
 		//******************************
 		
+		Comparator handComparator = new Comparator<Hand>(){
+
+			@Override
+			public int compare(Hand hand1, Hand hand2) {							
+				return hand1.handRank - hand2.handRank;
+				
+			}
+		};
+		
+		int result = handComparator.compare(hands.get(1), hands.get(2));
+		
+		
+		
+		
 		
 		return null;
 	}

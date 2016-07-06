@@ -12,6 +12,7 @@ public class Flush extends Hand{
 	
 	public Flush(ArrayList<Card> cards){
 		this.cards = cards;
+		this.handRank = 5;
 	}
 	
 	public Flush(Card card1, Card card2, Card card3, Card card4, Card card5 ){
@@ -29,6 +30,7 @@ public class Flush extends Hand{
 		
 		setHighCard(this.findHighestCard(cards));
 		
+		this.handRank = 5;
 	}	
 	
 	@Override
