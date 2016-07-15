@@ -36,11 +36,13 @@ public class HandUtil {
 		return highestCurrentCard;
 	}
 	
-	private static Hand getHand(ArrayList<Card> cards){
+	public static Hand getHand(ArrayList<Card> cards){
 		
 		//******************************
 		//***       Pair Check       ***
 		//******************************
+		
+		System.out.println("Pair Check");
 		
 		HashMap<Integer, ArrayList<Card>> cardMap = new HashMap<Integer, ArrayList<Card>>();
 		
@@ -77,16 +79,22 @@ public class HandUtil {
 				FourOfAKind f = new FourOfAKind(cardMap.get(j).get(0), cardMap.get(j).get(1), cardMap.get(j).get(2), cardMap.get(j).get(3));
 				hands.add(f);
 				fourOfAKindFound = true;
+				System.out.println("Found a 4 of a kind");
 				break;
 			} else if(cardMap.get(j).size() == 3){
 				ThreeOfAKind t = new ThreeOfAKind(cardMap.get(j).get(0), cardMap.get(j).get(1), cardMap.get(j).get(2));
+				System.out.println("Found a 3 of a kind");
 				hands.add(t);
 			} else if(cardMap.get(j).size() == 2){
 				Pair p = new Pair(cardMap.get(j).get(0), cardMap.get(j).get(1));
+				System.out.println("Found a 2 of a kind");
 				hands.add(p);
 			}
 			
 		}
+		
+		
+		System.out.println(hands);
 		
 		//*************************
 		//***  Full house check ***

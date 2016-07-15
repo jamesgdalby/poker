@@ -48,7 +48,7 @@ public class Deck {
 			}
 		}
 		
-		shuffleDeck();
+		//shuffleDeck();
 		
 		//System.out.println(deck.toString());
 		
