@@ -1,5 +1,7 @@
 package hand;
 
+import java.util.ArrayList;
+
 import cards.Card;
 
 public class Pair extends Hand{
@@ -16,5 +18,14 @@ public class Pair extends Hand{
 	public String toString(){
 		return "Pair hand: " + card1 + ", " +  card2;
 	}
+	
+	public ArrayList<Card>getCards(){
+		ArrayList<Card> allCards = new ArrayList<Card>();
+		allCards.add(card1);
+		allCards.add(card2);
+		return allCards;
+	}
+	
+	
 
 }

@@ -180,7 +180,7 @@ public class HandUtil {
 
 		ArrayList<Straight> straights = new ArrayList<Straight>();
 
-		findStraights(cards, straights, 1, cards.get(0).value, 0, 0, false);
+		findStraights(cards, straights, 1, cards.get(0).value, 1, 0, false);
 
 		// ******************************
 		// *** Straight Flush Check ***
@@ -191,6 +191,7 @@ public class HandUtil {
 		StraightFlush straightFlush = null;
 
 		if (straights.size() > 0) {
+			hands.addAll(straights);
 			straightFlush = checkStraightFlush(straights);
 		}
 
@@ -331,7 +332,7 @@ public class HandUtil {
 
 		// TODO recursively find all straights
 
-		if (index >= cards.size()) {
+		if (index < cards.size()) {
 			if (cards.get(index).value == previousValue + 1) {
 				sequenceCount++;
 				highestSequenceIndex = index;

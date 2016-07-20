@@ -37,4 +37,9 @@ private Card card1, card2, card3, card4, card5;
 			add(card5);
 		}};
 	}
+	
+	@Override
+	public String toString(){
+		return "Straight Flush hand: " + card1 + ", " +  card2 + ", " +  card3 + ", " +  card4 + ", " +  card5;
+	}
 }

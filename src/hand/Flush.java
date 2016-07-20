@@ -37,5 +37,10 @@ public class Flush extends Hand{
 	public ArrayList<Card> getCards(){
 		return cards;
 	}
+	
+	@Override
+	public String toString(){
+		return "Flush hand: " + card1 + ", " +  card2 + ", " +  card3 + ", " +  card4 + ", " +  card5;
+	}
 
 }

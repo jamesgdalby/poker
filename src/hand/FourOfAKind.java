@@ -1,5 +1,7 @@
 package hand;
 
+import java.util.ArrayList;
+
 import cards.Card;
 
 public class FourOfAKind extends Hand {
@@ -17,6 +19,15 @@ public class FourOfAKind extends Hand {
 	}
 	
 	public String toString(){
-		return "Three of a kind hand: " + card1 + ", " +  card2 + ", " +  card3 + ", " +  card4;
+		return "Four of a kind hand: " + card1 + ", " +  card2 + ", " +  card3 + ", " +  card4;
+	}
+	
+	public ArrayList<Card>getCards(){
+		ArrayList<Card> allCards = new ArrayList<Card>();
+		allCards.add(card1);
+		allCards.add(card2);
+		allCards.add(card3);
+		allCards.add(card4);
+		return allCards;
 	}
 }

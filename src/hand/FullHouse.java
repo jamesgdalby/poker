@@ -22,5 +22,11 @@ public class FullHouse extends Hand{
 		cards.addAll(pair.getCards());
 		return cards;
 	}
+	
+	@Override 
+	public String toString(){
+		return "Full House: " + threeOfAKind.getCards() + " " + pair.getCards();
+		
+	}
 
 }

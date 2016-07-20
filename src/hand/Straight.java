@@ -29,6 +29,10 @@ public class Straight extends Hand{
 		}};
 	}
 	
+	public String toString(){
+		return "Straight hand: " + card1 + ", " +  card2 + ", " +  card3 + ", " +  card4 + ", " +  card5;
+	}
+	
 	
 
 }
