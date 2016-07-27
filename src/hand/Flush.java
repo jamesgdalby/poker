@@ -12,6 +12,11 @@ public class Flush extends Hand{
 	
 	public Flush(ArrayList<Card> cards){
 		this.cards = cards;
+		this.card1 = cards.get(0);
+		this.card2 = cards.get(1);
+		this.card3 = cards.get(2);
+		this.card4 = cards.get(3);
+		this.card5 = cards.get(4);
 		this.handRank = 5;
 	}
 	

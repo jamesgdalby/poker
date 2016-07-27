@@ -194,6 +194,10 @@ public class HandUtil {
 			hands.addAll(straights);
 			straightFlush = checkStraightFlush(straights);
 		}
+		
+		// ******************************
+		// *** Flush Check ***
+		// ******************************
 
 		if (straightFlush != null) {
 			hands.add(straightFlush);
@@ -255,6 +259,7 @@ public class HandUtil {
 
 		for (Straight s : straights) {
 			Flush f = checkFlush(s.getCards());
+			
 
 			if (f != null) {
 				sf.add(new StraightFlush(f.getCards()));
@@ -293,16 +298,16 @@ public class HandUtil {
 		ArrayList<Card> spades = new ArrayList<Card>();
 
 		for (int i = 0; i < cards.size(); i++) {
-			if (cards.get(i).rank.equalsIgnoreCase(CardInfo.CLUB)) {
+			if (cards.get(i).suit.equalsIgnoreCase(CardInfo.CLUB)) {
 				clubs.add(cards.get(i));
 			}
-			if (cards.get(i).rank.equalsIgnoreCase(CardInfo.DIAMOND)) {
+			if (cards.get(i).suit.equalsIgnoreCase(CardInfo.DIAMOND)) {
 				diamonds.add(cards.get(i));
 			}
-			if (cards.get(i).rank.equalsIgnoreCase(CardInfo.HEART)) {
+			if (cards.get(i).suit.equalsIgnoreCase(CardInfo.HEART)) {
 				hearts.add(cards.get(i));
 			}
-			if (cards.get(i).rank.equalsIgnoreCase(CardInfo.SPADE)) {
+			if (cards.get(i).suit.equalsIgnoreCase(CardInfo.SPADE)) {
 				spades.add(cards.get(i));
 			}
 		}

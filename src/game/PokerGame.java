@@ -24,6 +24,8 @@ public class PokerGame {
 	
 	
 	private String currentState;
+	
+	// The number of cards played on the table
 	private int cardCount;
 	private Table table;
 	
@@ -94,8 +96,12 @@ public class PokerGame {
 				i++;
 			}
 		}
-		
-		getNextState();
+	}
+	
+	public void startGame(){
+		// All players accounted for, start the game.
+		currentState = PokerGame.STATE_GET_READY;
+		getReadyToPlay();
 	}
 	
 	public Hand getHand(Player player, Board board){
@@ -147,6 +153,8 @@ public class PokerGame {
 
 	private void getReadyToPlay() {
 		// TODO Auto-generated method stub
+		
+		
 		System.out.println("Ready to play");
 		getNextState();
 	}

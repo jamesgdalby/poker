@@ -29,11 +29,11 @@ public class PairTest {
 		playerCards.add(new Card(CardInfo.CLUB, CardInfo.TWO, CardInfo.TWO_VALUE));
 		playerCards.add(new Card(CardInfo.CLUB, CardInfo.THREE, CardInfo.THREE_VALUE));
 		
-		boardCards.add(new Card(CardInfo.DIAMOND, CardInfo.FOUR, CardInfo.FOUR_VALUE));
-		boardCards.add(new Card(CardInfo.SPADE, CardInfo.FIVE, CardInfo.FIVE_VALUE));
-		boardCards.add(new Card(CardInfo.HEART, CardInfo.SIX, CardInfo.SIX_VALUE));
+		boardCards.add(new Card(CardInfo.CLUB, CardInfo.FOUR, CardInfo.FOUR_VALUE));
+		boardCards.add(new Card(CardInfo.CLUB, CardInfo.FIVE, CardInfo.FIVE_VALUE));
+		boardCards.add(new Card(CardInfo.CLUB, CardInfo.SIX, CardInfo.SIX_VALUE));
 		boardCards.add(new Card(CardInfo.CLUB, CardInfo.JACK, CardInfo.JACK_VALUE));
-		boardCards.add(new Card(CardInfo.DIAMOND, CardInfo.JACK, CardInfo.JACK_VALUE));
+		boardCards.add(new Card(CardInfo.HEART, CardInfo.KING, CardInfo.JACK_VALUE));
 		
 		ArrayList allCards = new ArrayList<Card>();
 		allCards.addAll(playerCards);
