@@ -1,5 +1,9 @@
 package game;
 
+import java.io.BufferedReader;
+import java.io.Console;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import cards.Card;
@@ -28,13 +32,25 @@ public class PokerGame {
 	// The number of cards played on the table
 	private int cardCount;
 	private Table table;
+	private boolean isTesting = false;
 	
 	public PokerGame(Table table){
-		currentState = PokerGame.STATE_WAITING_FOR_PLAYERS_TO_JOIN;
+		init(table);		
+	}
+	
+	public PokerGame(Table table, boolean isTesting){
+		setIsTesting(isTesting);
+		init(table);
+	}
+	
+	private void init(Table table){
 		cardCount = 3;
-		
 		this.table = table;
-		waitForPlayersToJoin();
+		startGame();
+	}
+	
+	public void setIsTesting(boolean value){
+		isTesting = value;
 	}
 	
 	public void getNextState(){
@@ -87,15 +103,72 @@ public class PokerGame {
 
 	private void waitForPlayersToJoin() {
 		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
 		System.out.println("Waiting for players to join.");
 		
-		if(table.getPlayerCount() < 2){
+		if(isTesting){
+			if(table.getPlayerCount() < 2){
 			int i = 1; 
 			while(table.getPlayerCount() < 2){
-				table.addPlayerToTable(new Player("Test", "Player " + i, 100), table.getNextSeatNum());
-				i++;
+					table.addPlayerToTable(new Player("Test", "Player " + i, 100), table.getNextSeatNum());
+					i++;
+				}
 			}
+			getNextState();
+		} else {
+			while(table.getPlayerCount() < 2){
+				requestNewPlayer();
+			}
+			
+			boolean allSet = false;
+			
+			while(!allSet){
+				System.out.println("Would you like to add another player? Y/N");
+				
+				
+				String answer = "";
+				try {
+					answer = br.readLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(answer.equalsIgnoreCase("Y")){
+					requestNewPlayer();
+				} else if(answer.equalsIgnoreCase("N")){
+					allSet = true;
+				}
+			}
+			
+			getNextState();
+					
 		}
+		
+		
+		
+		
+	}
+	
+	private void requestNewPlayer(){
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			System.out.println("Please enter player info.");
+			System.out.println("First name: ");
+			String firstName = br.readLine().trim();
+			System.out.println("Last name: ");
+			String lastName = br.readLine().trim();
+			System.out.println("Funds: ");
+			double funds = Double.parseDouble(br.readLine().trim());
+			
+			Player p = new Player(firstName, lastName, funds);
+			table.addPlayerToTable(p);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void startGame(){
@@ -156,7 +229,7 @@ public class PokerGame {
 		
 		
 		System.out.println("Ready to play");
-		getNextState();
+		waitForPlayersToJoin();
 	}
 	
 }

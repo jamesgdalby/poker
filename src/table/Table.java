@@ -52,6 +52,15 @@ public class Table {
 		System.out.println(this);
 	}
 	
+	public void addPlayerToTable(Player player)
+	{
+		for(int i = 0; i < seats.size(); i++){
+			if(!seats.get(i).hasPlayer()){
+				addPlayerToTable(player, i);
+				break;
+			}
+		}
+	}
 	public Seat getNextSeat(int currentPosition){
 		boolean foundNextSeat = false;
 		Seat nextSeat = null;
