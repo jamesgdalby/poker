@@ -25,6 +25,9 @@ public class PokerGame {
 	public static String STATE_PLAYER_ACTIONS = "player actions";
 	public static String STATE_FIND_THE_WINNER = "find the winner";
 	public static String STATE_END_GAME = "end game";
+	public static String STATE_NEED_SHUFFLE = "Need to shuffle";
+	public static String READY_FOR_BLINDS = "ready for blinds";
+	public static String STATE_READY_TO_DEAL = "ready to deal";
 	
 	
 	private String currentState;
@@ -57,7 +60,7 @@ public class PokerGame {
 		if(currentState.equalsIgnoreCase(PokerGame.STATE_WAITING_FOR_PLAYERS_TO_JOIN))
 		{
 			currentState = PokerGame.STATE_GET_READY;
-			getReadyToPlay();
+			getReady();
 		} else if(currentState.equalsIgnoreCase(PokerGame.STATE_GET_READY))
 		{
 			currentState = PokerGame.STATE_DEAL;
@@ -174,7 +177,7 @@ public class PokerGame {
 	public void startGame(){
 		// All players accounted for, start the game.
 		currentState = PokerGame.STATE_GET_READY;
-		getReadyToPlay();
+		getReady();
 	}
 	
 	public Hand getHand(Player player, Board board){
@@ -220,16 +223,23 @@ public class PokerGame {
 
 	private void dealTheCards() {
 		// TODO Auto-generated method stub
+		System.out.println("Shuffling the cards");
+		table.deck.createDeck();
+		table.deck.shuffleDeck();
+	
+		getBlinds();
 		System.out.println("Deal the cards");
 		getNextState();
 	}
+	
+	private void getBlinds(){
+		
+	}
 
-	private void getReadyToPlay() {
+	private void getReady() {
 		// TODO Auto-generated method stub
-		
-		
 		System.out.println("Ready to play");
-		waitForPlayersToJoin();
+		getNextState();
 	}
 	
 }

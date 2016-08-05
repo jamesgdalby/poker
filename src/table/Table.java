@@ -15,15 +15,32 @@ public class Table {
 	
 	public ArrayList<Seat> seats;
 	public HashSet<Player> players;
-	private Player dealer;
+	public Seat dealerSeat;
 	private Board board;
-	private Deck deck;
+	public Deck deck;
 	
 	public Table(){
 		initSeats(9);
 		players = new HashSet<Player>();
 		board = new Board();
 		deck = new Deck();
+	}
+	
+	private void pickDealer(){
+		int start_index = (int)Math.floor((Math.random() * 10.0));
+		if(start_index == seats.size()){
+			start_index = 0;
+		}
+		for(int i = start_index; i < seats.size(); i++){
+			if(seats.get(i).hasPlayer()){
+				dealerSeat = seats.get(i);
+				break;
+			}
+			
+			if(i == seats.size()){
+				i = -1;
+			}
+		}
 	}
 	
 	private void initSeats(int seatCount){
@@ -84,9 +101,13 @@ public class Table {
 		
 	}
 	
+	
+	
 	public void startGame(){
+		/*
 		deck.createDeck();
 		deck.shuffleDeck();
+		*/
 		
 		System.out.println("The game has started!");
 		System.out.println("The players are...");
@@ -94,6 +115,7 @@ public class Table {
 		
 		PokerGame p = new PokerGame(this);
 	}
+	
 	
 	@Override
 	public String toString(){

@@ -5,6 +5,7 @@ import player.Player;
 public class Seat {
 	
 	private Player player;
+	public boolean hasDealerButton;
 	String seatID;
 	
 	
@@ -26,6 +27,11 @@ public class Seat {
 	
 	public Player getPlayer(){
 		return player;
+	}
+	
+	
+	public void removePlayer(){
+		this.player = null;
 	}
 	
 	@Override 

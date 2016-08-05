@@ -8,8 +8,10 @@ public class Deck {
 	public ArrayList<String> ranks;
 	public ArrayList<String> suits;
 	public ArrayList<Card> cards;
+	public boolean isDeckCreated = false; 
 	
 	public void createDeck(){
+		if(!isDeckCreated){
 		cards = new ArrayList<Card>();
 		ranks = new ArrayList<String>();
 		suits = new ArrayList<String>();
@@ -51,7 +53,8 @@ public class Deck {
 		//shuffleDeck();
 		
 		//System.out.println(deck.toString());
-		
+		isDeckCreated = true;
+		}
 	}
 	
 	public void shuffleDeck(){
