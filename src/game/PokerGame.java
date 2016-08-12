@@ -12,6 +12,7 @@ import hand.HandUtil;
 import player.Holding;
 import player.Player;
 import table.Board;
+import table.Seat;
 import table.Table;
 
 public class PokerGame {
@@ -226,14 +227,22 @@ public class PokerGame {
 		System.out.println("Shuffling the cards");
 		table.deck.createDeck();
 		table.deck.shuffleDeck();
-	
+		table.pickDealer();
 		getBlinds();
 		System.out.println("Deal the cards");
 		getNextState();
 	}
 	
+	
 	private void getBlinds(){
-		
+		//get dealer seat position
+		int dealerPosition = table.dealerSeat.getSeatID();
+		//get the next seat and tell it to pay the small blind
+		Seat smallBlindSeat = table.getNextSeat(dealerPosition);
+		smallBlindSeat.postSmallBlind();
+		Seat bigBlindSeat = table.getNextSeat(smallBlindSeat.getSeatID());
+		bigBlindSeat.postBigBlind();
+		//get the next seat again and tell it to pay the big blind
 	}
 
 	private void getReady() {

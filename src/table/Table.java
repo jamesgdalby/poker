@@ -26,7 +26,7 @@ public class Table {
 		deck = new Deck();
 	}
 	
-	private void pickDealer(){
+	public void pickDealer(){
 		int start_index = (int)Math.floor((Math.random() * 10.0));
 		if(start_index == seats.size()){
 			start_index = 0;
@@ -46,7 +46,7 @@ public class Table {
 	private void initSeats(int seatCount){
 		seats = new ArrayList<Seat>();
 		for(int i = 0; i< seatCount; i++){
-			Seat s = new Seat(Integer.toString(i));
+			Seat s = new Seat(i);
 			//s.addPlayer(new Player());
 			seats.add(s);
 		}
@@ -60,10 +60,6 @@ public class Table {
 	public void addPlayerToTable(Player player, int seatNumber){
 		players.add(player);
 		seats.get(seatNumber).addPlayer(player);
-		
-		if(players.size() == 1){
-			dealer = player;
-		}
 		
 		System.out.println("Added a new player!");
 		System.out.println(this);

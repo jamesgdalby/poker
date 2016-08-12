@@ -1,9 +1,12 @@
 package player;
 
+import table.Seat;
+
 public class Player {
 	
 	private PlayerInfo info; 
 	private Holding holding;
+	private Seat seat;
 	
 	public Player(String firstName, String lastName, double funds){
 		info = new PlayerInfo(firstName, lastName, funds);
@@ -25,6 +28,9 @@ public class Player {
 		return info.firstName + " " + info.lastName + ", $" + info.funds;
 	}
 	
+	public void setSeat(Seat s){
+		this.seat = s;
+	}
 	
 
 }

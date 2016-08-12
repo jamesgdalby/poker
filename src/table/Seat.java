@@ -5,11 +5,15 @@ import player.Player;
 public class Seat {
 	
 	private Player player;
-	String seatID;
+	private int seatID;
 	
 	
-	public Seat(String seatID){
+	public Seat(int seatID){
 		this.seatID = seatID;
+	}
+	
+	public int getSeatID(){
+		return this.seatID;
 	}
 	
 	public boolean hasPlayer(){
@@ -22,6 +26,7 @@ public class Seat {
 	
 	public void addPlayer(Player player){
 		this.player = player;
+		player.setSeat(this);
 	}
 	
 	public Player getPlayer(){
@@ -42,6 +47,16 @@ public class Seat {
 		}
 		
 		return message; 
+	}
+
+	public void postSmallBlind() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void postBigBlind() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
