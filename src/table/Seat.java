@@ -5,7 +5,6 @@ import player.Player;
 public class Seat {
 	
 	private Player player;
-	public boolean hasDealerButton;
 	String seatID;
 	
 	
